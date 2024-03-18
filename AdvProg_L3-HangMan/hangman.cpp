@@ -122,7 +122,7 @@ void updateSecretWord(string& secretWord, const char ch, const string& word)
 ***/
 void updateEnteredChars(const char ch, string& chars){
     // TODO: append the character ch is in end of the text chars
-    chars = chars + " " + ch;
+    chars += ch + ' ';
 }
 
 /***
@@ -160,13 +160,7 @@ void processData(const char ch, const string& word,
             update incorrectGuess: call updateIncorrectGuess() function
             update incorrectChars: call updateEnteredChars() function
     ***/
-    bool inWord = false;
-    for(int i = 0; i < word.size(); i++)
-        if(word[i] == ch){
-            inWord = true;
-            break;
-        }
-    if(inWord){
+    if(isCharInWord(ch, word)){
         updateSecretWord(secretWord, ch, word);
         updateEnteredChars(ch, correctChars);
     }
