@@ -164,10 +164,13 @@ void processData(const char ch, const string& word,
     for(int i = 0; i < word.size(); i++)
         if(word[i] == ch){
             inWord = true;
-            updateSecretWord(secretWord, ch, word);
-            updateEnteredChars(ch, correctChars);
+            break;
         }
-    if(!inWord){
+    if(inWord){
+        updateSecretWord(secretWord, ch, word);
+        updateEnteredChars(ch, correctChars);
+    }
+    else{
         updateIncorrectGuess(incorrectGuess);
         updateEnteredChars(ch, incorrectChars);
     }
