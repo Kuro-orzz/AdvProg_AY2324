@@ -1,5 +1,5 @@
 #include "simpleai.h"
-
+#include <bits/stdc++.h>
 int readMaxGuess()
 {
     int maxGuess;
@@ -44,6 +44,9 @@ vector<string> filterWordsByLen(int wordLen, const vector<string>& vocabulary)
 char nextCharWhenWordIsNotInDictionary(const set<char>& selectedChars)
 {
     char answer = 'a';
+    while(selectedChars.find(answer) != selectedChars.end()){
+        answer++;
+    }
     //Write your code here
     return answer;
 }
@@ -84,7 +87,6 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
             tmp = mp[c];
             answer = c;
         }
-
     return answer;
 }
 
@@ -98,11 +100,19 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
 
 char findBestChar(const vector<string>& candidateWords, const set<char>& selectedChars)
 {
-    char answer;
     //Write your code here
+    vector<pair<char, int>> v;
     map<char, int> mp = countOccurrences(candidateWords);
-    answer = findMostFrequentChar(mp, selectedChars);
-    return answer;
+    for(auto it : mp)
+        v.push_back({it.first, it.second});
+    auto cmp = [&](pair<char, int> a, pair<char, int> b){
+        return a.second < b.second;
+    };
+    sort(v.begin(), v.end(), cmp);
+    while(selectedChars.find(v.back().first) != selectedChars.end()){
+        v.pop_back();
+    }
+    return v.back().first;
 }
 
 string getWordMask(char nextChar)
