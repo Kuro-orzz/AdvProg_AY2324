@@ -1,5 +1,5 @@
 #include "simpleai.h"
-#include <bits/stdc++.h>
+
 int readMaxGuess()
 {
     int maxGuess;
@@ -149,12 +149,12 @@ bool isCorrectChar(char ch, const string& mask)
 ***/
 bool isWholeWord(const string& mask)
 {
-     bool answer = true;
+//     bool answer = true;
     //Write your code here
     for(char c : mask)
-        if(c == ' ')
-            answer = false;
-    return answer;
+        if(c == '_')
+            return false;
+    return true;
 }
 
 /***
