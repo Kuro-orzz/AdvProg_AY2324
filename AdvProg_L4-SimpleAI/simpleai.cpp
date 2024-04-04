@@ -111,6 +111,8 @@ char findBestChar(const vector<string>& candidateWords, const set<char>& selecte
     sort(v.begin(), v.end(), cmp);
     while(selectedChars.find(v.back().first) != selectedChars.end()){
         v.pop_back();
+        if(v.size() == 0)
+            return nextCharWhenWordIsNotInDictionary(selectedChars);
     }
     return v.back().first;
 }
