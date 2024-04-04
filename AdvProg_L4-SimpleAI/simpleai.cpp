@@ -78,14 +78,14 @@ map<char, int> countOccurrences(const vector<string>& candidateWords)
 
 char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& selectedChars)
 {
-    char answer;
+    char answer = ' ';
     //Write your code here
     int tmp = 0;
     map<char, int> mp = occurrences;
-    for(char c : selectedChars)
-        if(mp[c] > tmp){
-            tmp = mp[c];
-            answer = c;
+    for(auto it : mp)
+        if(it.second > tmp && selectedChars.find(it.first) == selectedChars.end()){
+            tmp = it.second;
+            answer = it.first;
         }
     return answer;
 }
@@ -100,21 +100,14 @@ char findMostFrequentChar(const map<char, int>& occurrences, const set<char>& se
 
 char findBestChar(const vector<string>& candidateWords, const set<char>& selectedChars)
 {
+    char answer;
     //Write your code here
     vector<pair<char, int>> v;
     map<char, int> mp = countOccurrences(candidateWords);
-    for(auto it : mp)
-        v.push_back({it.first, it.second});
-    auto cmp = [&](pair<char, int> a, pair<char, int> b){
-        return a.second < b.second;
-    };
-    sort(v.begin(), v.end(), cmp);
-    while(selectedChars.find(v.back().first) != selectedChars.end()){
-        v.pop_back();
-        if(v.size() == 0)
-            return nextCharWhenWordIsNotInDictionary(selectedChars);
-    }
-    return v.back().first;
+    answer = findMostFrequentChar(mp, selectedChars);
+    if(answer == ' ')
+        return nextCharWhenWordIsNotInDictionary(selectedChars);
+    return answer;
 }
 
 string getWordMask(char nextChar)
