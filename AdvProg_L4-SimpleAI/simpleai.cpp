@@ -152,7 +152,7 @@ bool isWholeWord(const string& mask)
      bool answer = true;
     //Write your code here
     for(char c : mask)
-        if(c == '_')
+        if(c == ' ')
             answer = false;
     return answer;
 }
